@@ -1,0 +1,44 @@
+
+Given an array arr[] of n positive integers. Push all the zeros of the given array to the right end of the array while maintaining the order of non-zero elements. Do the mentioned change in the array in-place.
+
+Example 1:
+
+Input:
+N = 5
+Arr[] = {3, 5, 0, 0, 4}
+Output: 3 5 4 0 0
+
+time:  O(n)
+space: O(1)
+
+class Solution{
+public:
+	void pushZerosToEnd(int arr[], int n) {
+	    // code here
+	    //applying insertion sort
+	    //if it is a non zero then we have to put it in its right place 
+	    //and right place is right after the previous non zero nmber
+	    
+	    
+	    //insertion ssort works but   gives tle
+	    //remember whenerver its related to sorting , but maintaining the  order
+	    //always use insertion sort
+	    
+	    
+	    
+	    for(int i=1;i<n;i++){
+	        int j=i-1;
+	        int key=arr[i];
+	        
+	        if(key>0){
+	            while(j>=0 && arr[j]==0){
+	                arr[j+1]=arr[j];
+	                j--;
+	            }
+	            arr[j+1]=key;
+	        }
+	    }
+	    
+	    
+	}
+};
