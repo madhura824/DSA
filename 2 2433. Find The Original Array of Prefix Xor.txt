@@ -1,3 +1,60 @@
+
+2433. Find The Original Array of Prefix Xor
+
+You are given an integer array pref of size n. Find and return the array arr of size n that satisfies:
+
+pref[i] = arr[0] ^ arr[1] ^ ... ^ arr[i].
+Note that ^ denotes the bitwise-xor operation.
+
+It can be proven that the answer is unique.
+
+
+
+Example 1:
+
+Input: pref = [5,2,0,3,1]
+Output: [5,7,2,3,2]
+Explanation: From the array [5,7,2,3,2] we have the following:
+- pref[0] = 5.
+- pref[1] = 5 ^ 7 = 2.
+- pref[2] = 5 ^ 7 ^ 2 = 0.
+- pref[3] = 5 ^ 7 ^ 2 ^ 3 = 3.
+- pref[4] = 5 ^ 7 ^ 2 ^ 3 ^ 2 = 1.
+
+
+
+Approach:  we have used the property of XOR which is the exor of same terms is same
+eg: 5^5=0
+
+
+
+ 101
+^101
+-------
+ 000
+
+
+
+we are given prev=[x1,x1^x2,x1^x2^x3,x1^x2^x3^x4]
+
+and from that we want [x1,x2,x3,x4]
+
+for index 0: prev[0]=ans[0]
+
+but for index 1:
+
+from x1^x2 we want x2
+
+so if we do  x1^x2   (current)
+	    ^x1      (prev)
+	   --------
+		x2    (x1^x1 is 0 that is they  get cancelled)
+
+
+therefore ans[i] =prev[i]^prev[i-1]
+
+
+
 class Solution {
 public:
     vector<int> findArray(vector<int>& pref) {
