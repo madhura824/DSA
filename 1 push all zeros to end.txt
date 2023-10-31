@@ -8,11 +8,16 @@ N = 5
 Arr[] = {3, 5, 0, 0, 4}
 Output: 3 5 4 0 0
 
-time:  O(n)
-space: O(1)
+expected time:  O(n)
+expected space: O(1)
 
+
+
+Approach 1: O(n^2) O(1)
 class Solution{
 public:
+
+//O(n^2)
 	void pushZerosToEnd(int arr[], int n) {
 	    // code here
 	    //applying insertion sort
@@ -38,6 +43,35 @@ public:
 	            arr[j+1]=key;
 	        }
 	    }
+	    
+	    
+	}
+};
+Approach 2: O(n)  space: O(1)
+
+
+maintain two pointers
+i will traverse the complete arr
+if arr[i]!=0 then we will put arr[i] in arr[j] and increment j
+
+
+class Solution{
+public:
+	void pushZerosToEnd(int arr[], int n) {
+	   //approach 1  o(n)
+	   
+	   int j=0;
+	   for(int i=0;i<n;i++){
+	       if(arr[i]>0){
+	           arr[j]=arr[i];
+	           j++;
+	       }
+	   }
+	   
+	   for(;j<n;j++){
+	       arr[j]=0;
+	   }
+	    
 	    
 	    
 	}
