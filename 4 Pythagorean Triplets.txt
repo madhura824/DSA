@@ -1,0 +1,45 @@
+Given an array arr of n integers, write a function that returns true if there is a triplet (a, b, c) from the array (where a, b, and c are on different indexes) that satisfies a2 + b2 = c2, otherwise return false.
+
+Example 1:
+
+Input:
+N = 5
+Arr[] = {3, 2, 4, 6, 5}
+Output: Yes
+Explanation: a=3, b=4, and c=5 forms a
+pythagorean triplet.
+
+
+logic:  
+for evey element in arr we try to find out 2 elements less than arr[i] (sorted array) by maintaining two pointers (j=0 and k=i-1) and in this subarray wee try to find pair whose addition wil be equal to arr[i], fo if arr[j]+arr[k]==arr[i] then return true
+
+if(arr[j]+arr[k]<arr[i]) the do j++ as we need a larger element 
+else if(arr[j]+arr[k]>arr[i]) the do k-- as we need a smaller element 
+
+
+
+class Solution{
+public:
+	// Function to check if the
+	// Pythagorean triplet exists or not
+	bool checkTriplet(int arr[], int n) {
+	    // code here
+	    //sort
+	    
+	    sort(arr,arr+n);
+	    for(int i=0;i<n;i++){
+	        arr[i]=arr[i]*arr[i];
+	    }
+	    
+	    for(int i=0;i<n;i++){
+	        int j=0;
+	        int k=i-1;
+	        while(j<k){  //till both are distinct indexes 
+	            if(arr[k]+arr[j]==arr[i]) return true;
+	            else if(arr[k]+arr[j]<arr[i]) j++;
+	            else k--;
+	        }
+	    }
+	    return false;
+	}
+};
