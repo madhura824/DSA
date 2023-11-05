@@ -1,0 +1,52 @@
+Given a non-empty array nums[] of integers of length N, find the top k elements which have the highest frequency in the array. If two numbers have same frequencies, then the larger number should be given more preference.
+
+Example 1:
+
+Input:
+N = 6
+nums = {1,1,1,2,2,3}
+k = 2
+Output: {1, 2}
+
+If two elements have the same frequency then the greater number will be included in the solution first
+
+
+Time: O(nlog n)  Space: O(n)
+
+Approach: We will require all the frequencies of all the numbers. Therefore we will maintain a map
+2) Now as we want the elements in a sorted form according to their frequencies we will use a priority queue which will by default is a max heap
+
+class Solution {
+  public:
+    vector<int> topK(vector<int>& nums, int k) {
+        // Code here
+        
+        map<int,int> m;
+        int n=nums.size();
+        for(int i=0;i<n;i++){
+            
+            if(m.find(nums[i])!=m.end()){
+                m[nums[i]]++;
+                
+            }
+            else{
+                m[nums[i]]=1;
+            }
+        }
+        
+        priority_queue<pair<int,int>> pq;
+        
+        for(auto a : m){
+            pq.push({a.second,a.first});
+            
+        }
+        vector<int> ans;
+        while(k-- && !pq.empty()){
+        auto p= pq.top();
+        pq.pop();
+        ans.push_back(p.second);
+            
+        }
+        return ans;
+    }
+};
