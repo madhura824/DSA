@@ -1,0 +1,61 @@
+Print Matrix in snake Pattern
+
+gfg potd
+
+Given a matrix of size N x N. Print the elements of the matrix in the snake like pattern.
+
+Example 1:
+
+Input:
+N = 3 
+matrix[][] = {{45, 48, 54},
+             {21, 89, 87}
+             {70, 78, 15}}
+Output: 
+45 48 54 87 89 21 70 78 15 
+Explanation:
+Matrix is as below:
+45 48 54
+21 89 87
+70 78 15
+Printing it in snake pattern will lead to 
+the output as 45 48 54 87 89 21 70 78 15.
+
+Approach:  for every alternate row we have to print the row in a reverse order. For this we will maintain a stack
+
+and to keep track for whether the row is alternate or not we will maintain a flag
+
+
+Time Comlexity: o(n square)
+Space Complexity:  O(n)
+class Solution
+{   
+    public:
+    //Function to return list of integers visited in snake pattern in matrix.
+    vector<int> snakePattern(vector<vector<int> > matrix)
+    {   
+        stack<int> s;
+        int flag=0;
+        vector<int> ans;
+        int n=matrix.size();
+        int m=matrix[0].size();
+        
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                if(flag==0){
+                    ans.push_back(matrix[i][j]);
+                }
+                else if(flag==1){
+                    s.push(matrix[i][j]);
+                    
+                }
+            }
+            while(!s.empty()){
+                ans.push_back(s.top());
+                s.pop();
+            }
+            flag=!flag;
+        }
+        return ans;
+    }
+};

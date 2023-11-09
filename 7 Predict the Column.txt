@@ -1,0 +1,47 @@
+Given a matrix(2D array) M of size N*N consisting of 0s and 1s only. The task is to find the column with maximum number of 0s. If more than one column exists, print the one which comes first. If the maximum number of 0s is 0 then return -1.
+
+Example:
+
+Input:
+N = 3
+M[][] = {{0, 0, 0},
+          {1, 0, 1},
+          {0, 1, 1}}
+Output:
+0
+Explanation:
+0th column (0-based indexing) is having 2 zeros which is maximum among all columns and comes first.
+
+Approach: traverse the complete array with 2 for loops first for rows and scond for columns and as we want to traverse column wise we will chack arr[j][i] every time for each iteration of the oouter for loop,  if arr[j][i]==0 then we will increment the count, and if the count is greater than the previous highestcount, then this coluumn is definitely a answer candidate, thus we will update our max with th new max . After completing the loops we will get the ans stored in the ans variable.
+
+Time Complexity: O(n^2)
+Space O(1)
+
+class Solution{
+    public:
+    /*Function to count zeros in each column
+    * N : Number of rows and columns in array
+    M is the matrix that is globally declared
+    */
+    int columnWithMaxZeros(vector<vector<int>>arr,int n){
+        
+        // Your code here
+        int ans=-1;
+        int max=0;
+        
+        for(int i=0;i<n;i++){
+            int count=0;
+            
+            for(int j=0;j<n;j++){
+        if(arr[j][i]==0) count++;
+            }
+            if(count>max){
+                ans=i;
+                max=count;
+            }
+        }
+        return ans;
+        
+    }
+};
+  
