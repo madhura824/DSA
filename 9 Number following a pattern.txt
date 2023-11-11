@@ -1,0 +1,68 @@
+Number following a pattern
+
+Given a pattern containing only I's and D's. I for increasing and D for decreasing. Devise an algorithm to print the minimum number following that pattern. Digits from 1-9 and digits can't repeat.
+
+Example 1:
+
+Input:
+D
+Output:
+21
+Explanation:
+D is meant for decreasing, so we choose the minimum number among all possible numbers like 21,31,54,87,etc.
+
+
+Approach: 
+
+
+Observation 1:  of input string of length n: we will have to output a number of length n+1.
+Why because fr each letter we have to show a pattern, which requires a minimum of 2 digits.
+
+Observation 2: For a series of continous I's we will add digits in a normal increasing order. 
+
+Observation 3: For a series of I following D, we have to have a number which is lesser in value than the latest preceding D
+
+eg:  IIIDDI
+     1236547 
+
+
+
+Code:
+
+#include <string>
+
+class Solution {
+public:
+    std::string printMinNumberForPattern(std::string s) {
+      int n = s.length();
+        int count = 1;
+        std::string result(n + 1, ' '); // Initialize result with spaces
+
+        int j; // Declare j before using it
+
+        for (int i = 0; i <=n; i++) {
+            if ( i==n || s[i] == 'I' ) {
+                result[i] = '0' + count; // Convert count to character and assign to result
+                count++;
+
+                j = i - 1;
+                while (j >= 0 && s[j] == 'D') {
+                    result[j] = '0' + count; // Convert count to character and assign to result
+                    count++;
+                    j--;
+                }
+            }
+        }
+
+       
+
+
+        return result;
+    }
+};
+
+
+we will go onn printinc value stored in count only if there is a  I or the position is the last position (Works for testcase DDD.....) and for each I we will traverse untill we hit another i to fill values for all the Ds  
+
+time complexity: o(nsquare)
+space complexity O(n)
