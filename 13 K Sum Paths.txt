@@ -1,0 +1,83 @@
+
+K Sum Paths
+
+Given a binary tree and an integer K. Find the number of paths in the tree which have their sum equal to K.
+A path may start from any node and end at any node in the downward direction.
+Since the answer may be very large, compute it modulo 109+7.
+
+Example 1:
+
+Input:      
+Tree = 
+          1                               
+        /   \                          
+       2     3
+K = 3
+Output: 
+2
+Explanation:
+Path 1 : 1 + 2 = 3
+Path 2 : only leaf node 3
+
+Approach:
+
+We simply aply the Prefix sub array problem Logic.While traverseing the tree we maintain the path sum till that node in variable sum , we also maintain a ans variable to store the count, we maintain a map where we strore the frequency of the sum till the current node, and when we backtrack from one node to previous node while traversing we decrement the frequency from the map, now the logic for counting the number of paths we have with k sum, we simply find the frequency for sum-k 
+
+say: sum is 10 and k=6
+this means that i want the no of paths with sum 6 and theprefix sum till now is 10, so if i get how many paths we have for sum 4 (10-6), thaen that will be the number of paths we  have for k sum.
+
+
+1  -1  1  -1  5   
+here ,  1  -1  1  -1  5   the sum is 5
+1  -1  5  the sum is 5
+5 the sum is 5
+
+
+
+there are 2 paths with sum 0
+
+therefore 5-2=3
+so here are 3 paths which give as 5 as the sum
+
+
+Time Complexity: o(n)
+Space Complexity: o(height of tree)
+
+
+#define mod 1000000007
+class Solution {
+public:
+    int ans;
+
+    unordered_map<int, int> m;
+
+    void dfs(Node* root, int k, int sum) {
+
+        if (root == NULL) return;
+        else {
+            sum = sum + root->data;
+            ans = (ans + m[sum - k]) % mod;
+            m[sum]++;
+
+            dfs(root->left, k, sum);
+            dfs(root->right, k, sum);
+
+            m[sum]--;
+
+            if (m[sum] == 0) {
+                m.erase(sum);
+            }
+        }
+    }
+
+    int sumK(Node* root, int k) {
+        ans = 0;
+        m[0] = 1;
+
+        dfs(root, k, 0);
+        return ans;
+    }
+};
+
+
+
